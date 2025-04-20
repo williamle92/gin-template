@@ -1,8 +1,10 @@
 package main
 
 import (
-  "net/http"
-  "github.com/gin-gonic/gin"
+	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -12,5 +14,8 @@ func main() {
       "message": "pong",
     })
   })
-  r.Run()
+  log.Fatal("emmmbarrasssinnggg")
+  if err := r.Run(); err != nil {
+	panic(err)
+  }
 }
