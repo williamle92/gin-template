@@ -1,11 +1,11 @@
 package database
 
 import (
+	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
 	"os"
-	"fmt"
 )
 
 var DB *gorm.DB
@@ -26,8 +26,6 @@ func Connect() {
 	DB = db
 	log.Println("✅ Database connected")
 }
-
-
 
 func CreateDSN(host, user, password, dbName, port string) string {
 	return fmt.Sprintf(
