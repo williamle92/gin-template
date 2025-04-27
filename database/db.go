@@ -2,15 +2,22 @@ package database
 
 import (
 	"fmt"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
-func Connect() {
+// Connect establishes the database connection and assigns it to the global DB variable.
+// It now returns an error if the connection fails.
+func Connect() error {
+	if err := godotenv.Load(); err != nil {
+		return fmt.Errorf("failed to load environment variables: %w", err)
+	}
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
@@ -18,13 +25,15 @@ func Connect() {
 	port := os.Getenv("DB_PORT")
 
 	dsn := CreateDSN(host, user, password, db_name, port)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	var err error                                           // Declare err here
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}) // Assign to the global DB and check for error
 	if err != nil {
-		log.Fatal("❌ Failed to connect to database: ", err)
+		// Instead of log.Fatal, return the error so main.go can handle it.
+		return fmt.Errorf("failed to connect to database: %w", err)
 	}
 
-	DB = db
 	log.Println("✅ Database connected")
+	return nil // Return nil if connection is successful
 }
 
 func CreateDSN(host, user, password, dbName, port string) string {
