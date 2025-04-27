@@ -30,7 +30,7 @@ func CreateUser(c *gin.Context) {
 	// Check if the query found a record (meaning the user exists).
 	// If result.Error is nil, it means a record was found.
 	// If result.Error is gorm.ErrRecordNotFound, no record was found, which is expected for a new user.
-	if result == nil {
+	if result.Error == nil {
 		// If result.Error is nil, a user with the same phone or email exists.
 		c.JSON(http.StatusBadRequest, serializers.UserResponse{
 			StatusCode: http.StatusBadRequest,
