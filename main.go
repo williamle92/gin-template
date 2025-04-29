@@ -20,6 +20,7 @@ func main() {
 	api := router.Group("/api")
 	{
 		api.POST("/users", routes.CreateUser)
+		api.POST("/login", routes.LoginUser)
 	}
 
 	if err := router.Run(":8080"); err != nil {
