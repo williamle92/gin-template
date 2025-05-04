@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -20,17 +19,11 @@ var DB *gorm.DB
 // Returns:
 //   - error: An error if loading environment variables or connecting to the database fails, otherwise nil.
 func Connect() error {
-	// Load environment variables from a .env file in the current directory.
-	// This allows for easy configuration without hardcoding credentials.
-	if err := godotenv.Load(); err != nil {
-		// Return an error if the .env file cannot be loaded.
-		return fmt.Errorf("failed to load environment variables: %w", err)
-	}
 
 	// Retrieve database connection details from environment variables.
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
+	password := os.Getenv("POSTGRES_PASSWORD")
 	db_name := os.Getenv("DB_NAME")
 	port := os.Getenv("DB_PORT")
 
