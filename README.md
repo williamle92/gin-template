@@ -8,26 +8,25 @@ This project is a starter template for building web APIs in Go using the Gin fra
   - [Prerequisites](#prerequisites)
   - [Getting Started](#getting-started)
     - [Cloning the Repository](#cloning-the-repository)
-    - [Environment Configuration (.env)](#environment-configuration-env)
-    - [Starting the services](#starting-the-services)
+    - [Environment Configuration](#environment-configuration)
+    - [Starting the Services](#starting-the-services)
     - [Database Initialization](#database-initialization)
-    - [Database Migrations](#database-migrations)
+  - [Database Migrations](#database-migrations)
   - [Core Components](#core-components)
     - [Models](#models)
-    - [Route and Handlers](#route-and-handlers)
+    - [Routes](#routes)
 
 
 ## Technology Stack and Features
-
-* **Go:** The primary programming language.
-* **Gin:** A fast, minimalist web framework for Go, used for building the API endpoints.
-* **Docker & Docker Compose:** For containerizing the application and its dependencies (database, Traefik) and orchestrating them for easy local development setup.
-* **Traefik:** Used as an API Gateway/Reverse Proxy to manage incoming requests and route them to the correct services based on rules (like hostname).
-* **PostgreSQL:** A powerful open-source relational database.
-* **GORM:** An Object-Relational Mapper (ORM) library for Go, simplifying database interactions (defining models, querying, creating, updating, deleting data, and handling migrations).
-* **Bcrypt:** Used for securely hashing user passwords before storing them in the database.
-* **JWT (JSON Web Tokens):** Intended for stateless authentication (though the provided code snippet focuses on user creation, JWT would be used for subsequent login/authorized requests).
-* **Atlas:** (Implied by your usage) A database schema management tool for managing and applying database migrations.
+* **[Go](https://go.dev/):** The primary programming language.
+* **[Gin](https://github.com/gin-gonic/gin):** A fast, minimalist web framework for Go, used for building the API endpoints.
+* **[Docker & Docker Compose](https://www.docker.com/):** For containerizing the application and its dependencies (database, Traefik) and orchestrating them for easy local development setup.
+* **[Traefik](https://traefik.io/traefik/):** Used as an API Gateway/Reverse Proxy to manage incoming requests and route them to the correct services based on rules (like hostname).
+* **[PostgreSQL](https://www.postgresql.org/):** A powerful open-source relational database.
+* **[GORM](https://gorm.io/):** An Object-Relational Mapper (ORM) library for Go, simplifying database interactions (defining models, querying, creating, updating, deleting data, and handling migrations).
+* **[Bcrypt](https://pkg.go.dev/golang.org/x/crypto/bcrypt):** Used for securely hashing user passwords before storing them in the database.
+* **[JWT](https://pkg.go.dev/github.com/golang-jwt/jwt/v5) (JSON Web Tokens):** Intended for stateless authentication (though the provided code snippet focuses on user creation, JWT would be used for subsequent login/authorized requests).
+* **[Atlas](https://atlasgo.io/):** (Implied by your usage) A database schema management tool for managing and applying database migrations.
 
 
 ## Prerequisites
@@ -51,7 +50,7 @@ git clone <repository_url> # Replace <repository_url> with the actual URL
 cd gin-template # Navigate into the project directory
 ```
 
-### Environment Configuration (.env)
+### Environment Configuration
 Create a file named `.env` at the root of the project directory. This file will hold sensitive information and configuration variables for your services.
 
 Copy the following structure into your .env file and fill in the values. Do not commit this file if it contains production secrets!
@@ -68,7 +67,7 @@ JWT_SALT=                # Secret key for JWT signing
 # Add any other app-specific variables here
 ```
 
-### Starting the services
+### Starting the Services
 Navigate to the root directory of the project in your terminal and run the following command:
 
 ```bash
@@ -102,7 +101,7 @@ env "gorm" {
 ```
 3. Apply migrations: run `atlas migrate apply --env gorm`
 
-### Database Migrations
+## Database Migrations
 
 Database migrations are version-controlled scripts that manage changes to your database schema over time (e.g., adding tables, columns, altering types, adding indexes). They provide a structured, trackable, and reliable way to evolve your database alongside your application code.
 
@@ -170,6 +169,6 @@ type User struct {
 - `gorm:"..."` tags configure database column mapping and constraints.
 - `json:"..."` tags configure how the struct is serialized/deserialized to/from JSON. json:"-" hides the field in JSON output.
 
-### Route and Handlers
+### Routes
 - Routes define the API endpoints (e.g., POST /user). These are set up using the Gin router in the main.go file.
 - Handlers are Go functions that execute when a specific route is matched. They receive a `*gin.Context` which provides access to the request (body, headers, params, query) and methods for writing the response (JSON, status codes, etc.). Handlers are defined in the routes directory.
