@@ -28,7 +28,7 @@ func CreateUser(c *gin.Context) {
 		// Include a generic validation error message in the JSON response.
 		c.JSON(http.StatusUnprocessableEntity, serializers.UserResponse{
 			StatusCode: http.StatusUnprocessableEntity,
-			Message:    "Validation failed", // Consider adding more specific error details from err if appropriate
+			Message:    "Validation failed: " + err.Error(), // Consider adding more specific error details from err if appropriate
 		})
 		// Log the actual validation error for debugging purposes.
 		log.Println(err.Error())
