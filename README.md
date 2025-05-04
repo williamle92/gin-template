@@ -47,7 +47,6 @@ Open your terminal and clone the repository:
 
 ```bash
 git clone https://github.com/williamle92/gin-template
-cd gin-template # Navigate into the project directory
 ```
 
 ### Environment Configuration
